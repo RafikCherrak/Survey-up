@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            background-color: #0aec1d;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        .main-content {
+            flex: 1;
+            background-color: #920aec;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            position: relative;
+            padding: 10px;
+        }
+
+        .background-layer {
+            background-image: url('peace.jpg');
+            background-size: cover;
+            background-position: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .logo-layer {
+            position: absolute;
+            border: 2px solid #0a0eec;
+            background-color: #1c1c1d;
+        }
+
+        .logo-top-right { top: 10px; right: 10px; }
+        .logo-top-left { top: 10px; left: 10px; }
+        .logo-top-center { top: 10px; left: 50%; transform: translateX(-50%); }
+
+        .logo-bottom-right { bottom: 10px; right: 10px; }
+        .logo-bottom-left { bottom: 10px; left: 10px; }
+        .logo-bottom-center { bottom: 10px; left: 50%; transform: translateX(-50%); }
+
+        .logo-middle-right { top: 50%; right: 10px; transform: translateY(-50%); }
+        .logo-middle-left { top: 50%; left: 10px; transform: translateY(-50%); }
+        .logo-middle-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        .logo-layer img {
+            width: 50px; /* Ajustez la taille du logo selon vos besoins */
+            height: auto;
+        }
+
+        .toggle-button,
+        .remove-logo-button {
+            width: 160px;
+            margin-top: 10px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .toggle-button {
+            background-color: #f56302e1;
+            color: #fff;
+        }
+
+        .remove-logo-button {
+            background-color: #e74c3ce1;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .tnqt{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .text-layer {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <title>Ma Page</title>
+</head>
+<body>
+
+    <div class="container">
+       <div class="tnqt">
+        <form onsubmit="return false;">
+            <label for="text">Texte :</label>
+            <input type="text" id="text" placeholder="Entrez le texte">
+            <label for="position">Position :</label>
+            <select id="position">
+                <option value="text-top-right">Coin supérieur droit</option>
+                <option value="text-top-left">Coin supérieur gauche</option>
+                <option value="text-top-center">Centre supérieur</option>
+                <option value="text-bottom-right">Coin inférieur droit</option>
+                <option value="text-bottom-left">Coin inférieur gauche</option>
+                <option value="text-bottom-center">Centre inférieur</option>
+                <option value="text-middle-right">Droite du milieu</option>
+                <option value="text-middle-left">Gauche du milieu</option>
+                <option value="text-middle-center">Centre milieu</option>
+                <option value="text-top-right-center">Entre Coin supérieur droit et Centre supérieur</option>
+                <option value="text-top-left-center">Entre Coin supérieur gauche et Centre supérieur</option>
+                <option value="text-top-middle-center">Entre Coin supérieur au milieu</option>
+                <option value="text-bottom-right-bottom">Entre Coin inférieur droit et Centre inférieur //////// </option>
+                <option value="text-bottom-left-bottom">Entre Coin inférieur gauche et Centre inférieur  ///////</option>
+                <option value="text-bottom-middle-bottom">Entre Coin inférieur au milieu  ////// </option>
+
+
+                <option value="text-middle-bottom-right-center">Entre Coin milieu droit en bas************</option>
+                <option value="text-middle-bottom-left-center">Entre Coin milieu  gauche en bas  ***********</option>
+
+                <option value="text-middle-right-center">Entre Coin milieu droit centre ^^^^^^^</option>
+                <option value="text-middle-left-center">Entre Coin milieu  gauche centre ^^^^^^^</option>
+
+                <option value="text-middle-top-right-center">Entre Coin milieu droit en haut $$$$</option>
+                <option value="text-middle-top-left-center">Entre Coin milieu  gauche en haut $$$$</option>
+            </select>
+            <button onclick="updateTextPosition()"">Mettre à jour le texte</button>
+        </form>&nbsp;&nbsp;&nbsp;
+        <button class="toggle-button" onclick="toggleBackground()">Toggle Background</button>
+        <button class="remove-logo-button" onclick="toggleLogos()">Toggle Logos</button>
+       </div>
+        <div class="main-content">
+            <div class="background-layer"></div>
+            <div class="logo-layer logo-top-right">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-top-left">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-top-center">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="text-layer" id="textLayer"></div>
+            <div class="logo-layer logo-bottom-right">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-bottom-left">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-bottom-center">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-middle-right">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-middle-left">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+            <div class="logo-layer logo-middle-center">
+                <img src="microphone.png" alt="Microphone Logo">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBackground() {
+            var backgroundLayer = document.querySelector('.background-layer');
+            backgroundLayer.style.display = (backgroundLayer.style.display === 'none' || backgroundLayer.style.display === '') ? 'block' : 'none';
+        }
+
+        function toggleLogos() {
+            var logos = document.querySelectorAll('.logo-layer');
+            logos.forEach(function (logo) {
+                var currentDisplay = window.getComputedStyle(logo, null).getPropertyValue('display');
+                logo.style.display = (currentDisplay === 'none' || currentDisplay === '') ? 'block' : 'none';
+            });
+        }
+        function updateTextPosition() {
+            var text = document.getElementById('text').value;
+            var position = document.getElementById('position').value;
+            var textLayer = document.getElementById('textLayer');
+
+            textLayer.innerText = text;
+
+            switch (position) {
+                case 'text-top-right':
+                    textLayer.style.top = '10px';
+                    textLayer.style.right = '10px';
+                    textLayer.style.left = '';
+                    textLayer.style.bottom = '';
+                    break;
+                case 'text-top-left':
+                    textLayer.style.top = '10px';
+                    textLayer.style.left = '10px';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '';
+                    break;
+                case 'text-top-center':
+                    textLayer.style.top = '10px';
+                    textLayer.style.left = '50%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '';
+                    break;
+                case 'text-bottom-right':
+                    textLayer.style.top = '';
+                    textLayer.style.right = '10px';
+                    textLayer.style.left = '';
+                    textLayer.style.bottom = '10px';
+                    break;
+                case 'text-bottom-left':
+                    textLayer.style.top = '';
+                    textLayer.style.left = '10px';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '10px';
+                    break;
+                case 'text-bottom-center':
+                    textLayer.style.top = '';
+                    textLayer.style.left = '50%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '10px';
+                    break;
+                case 'text-middle-right':
+                    textLayer.style.top = '50%';
+                    textLayer.style.right = '10px';
+                    textLayer.style.transform = 'translateY(-50%)';
+                    textLayer.style.left = '';
+                    textLayer.style.bottom = '';
+                    break;
+                case 'text-middle-left':
+                    textLayer.style.top = '50%';
+                    textLayer.style.left = '10px';
+                    textLayer.style.transform = 'translateY(-50%)';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '';
+                    break;
+                case 'text-middle-center':
+                    textLayer.style.top = '50%';
+                    textLayer.style.left = '50%';
+                    textLayer.style.transform = 'translate(-50%, -50%)';
+                    textLayer.style.right = '';
+                    textLayer.style.bottom = '';
+                    break;
+                    case 'text-top-right-center':
+                    textLayer.style.top = '150px';
+                    textLayer.style.right = '50px';
+                    textLayer.style.left = '1%';
+                    break;
+                case 'text-top-left-center':
+                     textLayer.style.top = '150px';
+                      textLayer.style.right = '50px';
+                     textLayer.style.left = '80%';
+                    break;
+                    case 'text-top-middle-center':
+                    textLayer.style.top = '150px';
+                    textLayer.style.right = '50px';
+                    textLayer.style.left = '40%';
+                    break;
+
+
+
+
+
+                case 'text-bottom-right-bottom':
+                textLayer.style.bottom = '150px';
+                textLayer.style.right = '50px';
+                textLayer.style.left = '1%';
+                    break;
+                case 'text-bottom-left-bottom':
+                textLayer.style.bottom = '150px';
+                textLayer.style.right = '50px';
+                     textLayer.style.left = '80%';
+                    break;
+                    case 'text-bottom-middle-bottom':
+                    textLayer.style.bottom = '150px';
+                    textLayer.style.right = '50px';
+                    textLayer.style.left = '40%';
+                    break;
+
+
+
+
+                case 'text-middle-right-center':
+                    textLayer.style.bottom = '320px';
+                    textLayer.style.right = '';
+                    textLayer.style.left = '75%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+                case 'text-middle-left-center':
+                    textLayer.style.bottom = '320px';
+                    textLayer.style.left = '10px';
+                    textLayer.style.right = '50%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+
+                    case 'text-middle-bottom-right-center':
+                    textLayer.style.bottom = '10px';
+                    textLayer.style.right = '';
+                    textLayer.style.left = '75%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+                case 'text-middle-bottom-left-center':
+                    textLayer.style.bottom = '10px';
+                    textLayer.style.left = '10px';
+                    textLayer.style.right = '50%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+                    case 'text-middle-top-right-center':
+                    textLayer.style.bottom = '10px';
+                    textLayer.style.right = '';
+                    textLayer.style.left = '75%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+                case 'text-middle-top-left-center':
+                    textLayer.style.bottom = '10px';
+                    textLayer.style.left = '10px';
+                    textLayer.style.right = '50%';
+                    textLayer.style.transform = 'translateX(-50%)';
+                    break;
+                default:
+                    // Par défaut, positionnez le texte en haut à droite
+                    textLayer.style.top = '10px';
+                    textLayer.style.right = '10px';
+                    textLayer.style.left = '';
+                    textLayer.style.bottom = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
